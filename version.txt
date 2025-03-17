@@ -1,0 +1,7 @@
+=========================
+This page appears at the end of the course and identifies 
+the release level of the course
+=========================
+Version information for course: WA3210
+CVS Release tag: REL_5_2
+Release date: September 4 2024
