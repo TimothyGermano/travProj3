@@ -22,9 +22,6 @@ teamsData = df.groupby('homeworld')['unit_id'].count()
 # teamsData = df.groupby('unit_type')['unit_id'].count()
 # print(teamsData)
 
-#air_quality["ratio_paris_antwerp"] = (
-   # air_quality["station_paris"] / air_quality["station_antwerp"]
-
 data = df['is_resistance'] = (df['empire_or_resistance'] == 'resistance')
 # print(df)
 
@@ -47,33 +44,36 @@ data = df['is_resistance'] = (df['empire_or_resistance'] == 'resistance')
 
 # # feature_importances = pd.DataFrame({'Feature'})
 
-# x_encoded = pd.get_dummies(df[['unit_type', 'homeworld']], prefix=['unit_type', 'homeworld'])
+####################
+x_encoded = pd.get_dummies(df[['unit_type', 'homeworld']], prefix=['unit_type', 'homeworld'])
  
-# y_encoded = df['is_resistance']
+y_encoded = df['is_resistance']
  
-# X_train, X_test, y_encoded_train, y_encoded_test = train_test_split(x_encoded, y_encoded, test_size=0.3, random_state=42)
+X_train, X_test, y_encoded_train, y_encoded_test = train_test_split(x_encoded, y_encoded, test_size=0.3, random_state=42)
  
-# clf = DecisionTreeClassifier(random_state=42)
-# clf.fit(X_train, y_encoded_train)
+clf = DecisionTreeClassifier(random_state=42)
+clf.fit(X_train, y_encoded_train)
  
-# feature_importances = clf.feature_importances_
+feature_importances = clf.feature_importances_
  
-# features_df = pd.DataFrame({
-#     'feature': x_encoded.columns,
-#     'importance': feature_importances
-# })
+features_df = pd.DataFrame({
+    'feature': x_encoded.columns,
+    'importance': feature_importances
+})
  
-# features_df = features_df.sort_values(by='importance', ascending=False)
+features_df = features_df.sort_values(by='importance', ascending=False)
  
-# plt.figure(figsize=(14, 8))
-# plt.bar(features_df['feature'], features_df['importance'])
-# plt.title('Feature Importance')
-# plt.ylabel('Importance')
-# plt.xlabel('Feature')
-# plt.xticks(rotation=90)
-# plt.tight_layout()
-# plt.show()
-#with open('decision_tree_model.pkl', 'wb') as file:9    pickle.dump(clf, file)
+plt.figure(figsize=(14, 8))
+plt.bar(features_df['feature'], features_df['importance'])
+plt.title('Feature Importance')
+plt.ylabel('Importance')
+plt.xlabel('Feature')
+plt.xticks(rotation=90)
+plt.tight_layout()
+plt.show()
+#####################
+
+with open('decision_tree_model.pkl', 'wb') as file:  pickle.dump(clf, file)
 
 df = pd.read_csv("troop_movements_1m.csv")
 print(df)
